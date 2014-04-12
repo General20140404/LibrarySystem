@@ -1,14 +1,11 @@
 LibrarySystem
 =============
-
 Name: library system
 Description:
 Keywords: AngularJS, NodeJS, MongoDB
 
-
 main File/Folder specs
 ======================
-
 app - now it's a angular seed folder, need to modify
 config - contain server side related code
 node_modules - contain grunt plugin
@@ -19,3 +16,7 @@ Gruntfile.js - grunt task management file
 package.json - description and library dependence file
 server.js - server entry point file
 web-server.js - temp server entry point file, need to remove in the further
+
+Github website link
+===================
+Website: http://general20140404.github.io/LibrarySystem
