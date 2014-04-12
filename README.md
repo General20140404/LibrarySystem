@@ -1,11 +1,11 @@
 <h2>LibrarySystem</h2>
-=============
+
 <p>Name: library system</p>
 <p>Description:</p>
 <p>Keywords: AngularJS, NodeJS, MongoDB</p>
 
 <h2>main File/Folder specs</h2>
-======================
+
 <p>app - now it's a angular seed folder, need to modify</p>
 <p>config - contain server side related code</p>
 <p>node_modules - contain grunt plugin</p>
@@ -18,5 +18,5 @@
 <p>web-server.js - temp server entry point file, need to remove in the further</p>
 
 <h2>Github website link</h2>
-===================
+
 <p><a href="Website: http://general20140404.github.io/LibrarySystem">Website: http://general20140404.github.io/LibrarySystem</a></p>
