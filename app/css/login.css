@@ -1,0 +1,22 @@
+#login{
+	/*border: 1px solid black;*/
+	width: 540px;
+	height: 240px;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 1px 10px #2B2929;
+	-moz-box-shadow: 0 1px 10px #2B2929;
+	box-shadow: 0 1px 10px #2B2929;
+	background-color: #fff;
+}
+form{
+	padding: 40px 0;
+}

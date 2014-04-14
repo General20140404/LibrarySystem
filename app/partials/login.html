@@ -1,0 +1,23 @@
+<div class="container" id="login">
+	<form class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="inputEmail">Email</label>
+			<div class="controls">
+				<input type="text" id="inputEmail" placeholder="Email" ng-model="fields.username">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputPassword">Password</label>
+			<div class="controls">
+				<input type="password" id="inputPassword" placeholder="Password" ng-model="fields.password">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<label class="checkbox">
+					<input id="checkboxRemember" type="checkbox" ng-model="fields.remember">Remember me</label>
+				<button type="submit" id="loginSubmit" class="btn" ng-click="submit()">Sign in</button>
+			</div>
+		</div>
+	</form>
+</div>
