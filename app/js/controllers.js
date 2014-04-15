@@ -3,17 +3,20 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-	.controller('loginCtrl', ['$scope',
-		function($scope) {
+	.controller('loginCtrl', ['$scope', 'Login',
+		function($scope, Login) {
 			$scope.fields = {
 				'username': 'admin@tibco-support.com',
 				'password': 'admin',
 				'remember': 'false'
 			}
 			$scope.submit = function() {
-				console.log('submit action.');
-				console.log('login fields details:');
-				console.log('username: ' + $scope.fields.username+' | password: '+$scope.fields.password+ ' | remember: '+$scope.fields.remember);
+				// var param = {'action': 'query', 'param': 'name'};
+				var param = {};
+				$scope.checked = Login.query(param, $scope.fields, function(data) {
+					console.log(data);
+				});
+				// $scope.check = Login.query();
 			}
 		}
 	])

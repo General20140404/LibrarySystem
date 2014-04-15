@@ -10,21 +10,43 @@ var server_config = require('./server/config/server_config');
 var utils = require('./server/config/utils');
 var mime = require('./server/config/mime').types;
 var config = require("./server/config/config");
+var route = require("./server/router");
+var requestHandler = require("./server/requestHandler");
 
 var server = http.createServer(function(request, response) {
 
-  	if (request.method.toLowerCase() === 'post') {
-  		
-  	} else {
 
-  		var pathname = url.parse(request.url).pathname;
-	    if (pathname.slice(-1) === "/") {
-	        pathname = pathname + config.entryPoint.file;
-	    }
-	    var realPath = path.join("app", path.normalize(pathname.replace(/\.\./g, "")));
+    // to do, should move to another module file
+    var handle = {};
+    handle['/login'] = requestHandler.login;
+    handle['/test'] = requestHandler.test;
 
 
-  		var pathHandle = function(realPath) {
+
+    var pathname = url.parse(request.url).pathname;
+    if (pathname.slice(-1) === "/") {
+        pathname = pathname + config.entryPoint.file;
+    }
+
+
+    var regExp = /.html$|.css$|.js$|.json$|.xml$|.ico$/;
+    if (!regExp.test(pathname.toLowerCase())) {
+        // handle ajax request
+        var postData = '';
+        request.on('data', function(chunk) {
+            postData += chunk;
+        }).on("end", function() {
+            route.route(handle, pathname, response, postData);
+        });
+
+    } else {
+        // handle app asserts request, these file always end by .js, .css, .html or other format suffix
+        // to do, should move to another module file.
+        console.log('this is app asserts file');
+
+        var realPath = path.join("app", path.normalize(pathname.replace(/\.\./g, "")));
+
+        var pathHandle = function(realPath) {
             fs.stat(realPath, function(err, stats) {
                 if (err) {
                     response.writeHead(404, "Not Found", {
@@ -104,7 +126,8 @@ var server = http.createServer(function(request, response) {
         };
 
         pathHandle(realPath);
-  	}
+
+    }
 
 });
 
