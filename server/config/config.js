@@ -10,3 +10,7 @@ exports.Compress = {
 exports.entryPoint = {
     file: "index.html"
 };
+
+exports.asserts = {
+    fileMatch: /^.html$|^.css$|^.js$|^.json$|^.xml$|^.ico$/
+};
