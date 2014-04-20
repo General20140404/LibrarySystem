@@ -1,38 +1,79 @@
 var MONGO_PORT = "27017",
-    MONGO_DATABASE = "test",
-    MONGO_COLLECTION = "test";
+    MONGO_DATABASE = "library";
 
-var Db = require('mongodb').Db,
-    MongoClient = require('mongodb').MongoClient,
-    Server = require('mongodb').Server,
-    ReplSetServers = require('mongodb').ReplSetServers,
-    ObjectID = require('mongodb').ObjectID,
-    Binary = require('mongodb').Binary,
-    GridStore = require('mongodb').GridStore,
-    Grid = require('mongodb').Grid,
-    Code = require('mongodb').Code,
-    BSON = require('mongodb').pure().BSON,
-    assert = require('assert');
+var MongoClient = require('mongodb').MongoClient,
+    Server = require('mongodb').Server;
 
 // Set up the connection to the local db
 var mongoclient = new MongoClient(new Server("localhost", MONGO_PORT), {native_parser: true});
 
-// Open the connection to the server
-mongoclient.open(function(err, mongoclient) {
+function Mongo(collectionName){
+    this.db = null;
+    this.collection = null;
+    this.collectionName = collectionName;
+    this.executeNames = {
+        "insert" : 1,
+        "delete" : 2,
+        "find" : 3
+    };
+    this.responseObj = {};
+}
 
-  var db = mongoclient.db(MONGO_DATABASE);
-  var collection = db.collection(MONGO_COLLECTION);
+Mongo.prototype.runMongo = function(callback){
+    var _this = this;
+    mongoclient.open(function(err, mongoclient){
+        _this.db = mongoclient.db(MONGO_DATABASE);
+        _this.collection = _this.db.collection(_this.collectionName);
+        callback();
+    });
+};
 
-  collection.find().toArray(function(err, docs){
+Mongo.prototype.closeMongo = function(){
+    this.db.close();
+};
 
-    for(var i = 0,len = docs.length;i<len;i++){
-      console.log(docs[i]);
+
+/*
+    Mongo.prototype.execute - use to execute the document in database 
+    
+    Options
+        @ executeName (String) - the name should be one of ["insert", "delete", "find"]
+        @ query (Object) - a json data for "insert", or a selector for "delete" or "find"
+        @ option (Object) - an object contains some limited condition, like {w : 1}
+
+    Returns
+        null
+
+*/
+
+Mongo.prototype.execute = function(executeName, query, option, callback){
+    if(!this.executeNames[executeName]){
+        this.responseObj.error = "The executeName is not exist";
     }
 
-    db.close();
+    var _this = this;
 
-  });
+    this.runMongo(function(){
+        var collection = _this.collection;
+
+        if(executeName !== "find"){
+            collection[executeName](query, option, function(error, result) {
+                console.log(_this.responseObj)
+                _this.responseObj.error = error;
+                _this.responseObj.result = result; 
+                callback(_this.responseObj);
+            });
+        }else{
+            collection[executeName](query, option).toArray(function(error, result) {
+                _this.responseObj.error = error;
+                _this.responseObj.result = result; 
+                callback(this.responseObj);
+            });
+        }
+        
+    });
+}
 
 
-  
-});
+
+exports.Mongo = Mongo;
