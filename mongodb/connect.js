@@ -7,7 +7,7 @@ var MongoClient = require('mongodb').MongoClient,
 // Set up the connection to the local db
 var mongoclient = new MongoClient(new Server("localhost", MONGO_PORT), {native_parser: true});
 
-function Mongo(collectionName){
+function Collection(collectionName){
     this.db = null;
     this.collection = null;
     this.collectionName = collectionName;
@@ -19,7 +19,7 @@ function Mongo(collectionName){
     this.responseObj = {};
 }
 
-Mongo.prototype.runMongo = function(callback){
+Collection.prototype.runMongo = function(callback){
     var _this = this;
     mongoclient.open(function(err, mongoclient){
         _this.db = mongoclient.db(MONGO_DATABASE);
@@ -28,13 +28,13 @@ Mongo.prototype.runMongo = function(callback){
     });
 };
 
-Mongo.prototype.closeMongo = function(){
+Collection.prototype.closeMongo = function(){
     this.db.close();
 };
 
 
 /*
-    Mongo.prototype.execute - use to execute the document in database 
+    Collection.prototype.execute - use to execute the document in database 
     
     Options
         @ executeName (String) - the name should be one of ["insert", "delete", "find"]
@@ -46,7 +46,7 @@ Mongo.prototype.closeMongo = function(){
 
 */
 
-Mongo.prototype.execute = function(executeName, query, option, callback){
+Collection.prototype.execute = function(executeName, query, option, callback){
     if(!this.executeNames[executeName]){
         this.responseObj.error = "The executeName is not exist";
     }
@@ -76,4 +76,4 @@ Mongo.prototype.execute = function(executeName, query, option, callback){
 
 
 
-exports.Mongo = Mongo;
+exports.Collection = Collection;
