@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" ng-app="">
+    <head>
+        <meta charset="utf-8">
+        <title>A test page</title>
+        <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap-responsive.css"/>
+        <script src="../lib/angular/angular.js"></script>
+    </head>
+    <body>
+        <div ng-controller="Ctrl" class="container">
+            <h2>Request test page</h2>
+            <div>
+                <label>Request name</label>
+                <input type="text" ng-model="requestName">
+            </div>
+            <div>
+                <label>Parameters</label>
+            </div>
+            <div ng-repeat="item in obj">
+                <input type="text" placeholder="Key" ng-model="item.key" ng-focus="addNewItem($index)" /> <input type="text" placeholder="Value" ng-model="item.value" /><i class="icon-remove"></i>
+            </div>
+            <div>
+                <button class="btn btn-primary" ng-click="send()">Send</button>
+            </div>
+            <div>
+                </br></br>
+                <p>{{result}}</p>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        function Ctrl($scope, $http){
+            var count = 0;
+            $scope.obj = {
+                "key0" : {
+                    key : null,
+                    value : null
+                }
+            };
+
+            $scope.addNewItem = function(index){
+                if(index === count){
+                    count++;
+                    $scope.obj["key" + count] = {
+                        key : null,
+                        value : null
+                    };
+                }
+            }
+
+            $scope.send = function(){
+                var json = {};
+                angular.forEach($scope.obj, function(v ,k){
+                    if(v.key && v.value){
+                        json[v.key] = v.value;
+                    }
+                });
+
+                console.log(json)
+
+                $http.post("/" + $scope.requestName, json).success(function(data){
+                    $scope.result = data;
+                }).error(function(data){
+                    $scope.result = data;
+                });
+            }
+        }
+
+    </script>
+</html>

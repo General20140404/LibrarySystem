@@ -1,4 +1,4 @@
-var Collection = require("../mongodb/connect").Collection;
+var Collection = require("./mongodb/collection").Collection;
 
 var test = new Collection("test");
 
