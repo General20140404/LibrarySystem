@@ -21,18 +21,29 @@ function test(response, postData) {
 };
 
 function addNewBook(response, postData){
-	var collection = new Collection("book");
+	var collection = new Collection("BookInfo");
 	postData = JSON.parse(postData);
 	var bookID = postData.id;
-	Book.getBook(bookID, function(json) {
-		collection.execute("insert", json, {w:1}, function(result){
+	collection.execute("count", {id:bookID}, {}, function(msg){
+		collection.close();
+		if(msg.result === 1){
+			msg.result = "This book is already exist";
 			response.writeHead(200, {"Content-Type": "application/json"});
-    		response.write(JSON.stringify(result)); 
+    		response.write(JSON.stringify(msg)); 
 			response.end();
-			collection.close();
-		});
-
+		}else{
+			Book.getBook(bookID, function(json) {
+				collection.execute("insert", json, {w:1}, function(result){
+					collection.close();
+					response.writeHead(200, {"Content-Type": "application/json"});
+		    		response.write(JSON.stringify(result)); 
+					response.end();
+				});
+			});
+		}
+		
 	});
+	
 }
 
 exports.login = login;

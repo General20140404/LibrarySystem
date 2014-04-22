@@ -1,6 +1,9 @@
 @echo off
 call config.bat
 
-%MONGODB_PATH%\bin\mongoexport -d %MONGODB_DATABASE% -c %MONGODB_COLLECTION% -o %HOME%\data\book.dat
+for %%a in (%MONGODB_COLLECTION%) do (
+	echo %%a :
+	%MONGODB_PATH%\bin\mongoexport -d %MONGODB_DATABASE% -c %%a -o %HOME%\data\%%a.dat	
+)
 
 pause

@@ -37,7 +37,7 @@ Collection.prototype.close = function(){
     Collection.prototype.execute - use to execute the document in database 
     
     Options
-        @ executeName (String) - the name should be one of ["insert", "delete", "find"]
+        @ executeName (String) - the name should be one of ["insert", "delete", "find", "count"]
         @ query (Object) - a json data for "insert", or a selector for "delete" or "find"
         @ option (Object) - an object contains some limited condition, like {w : 1}
 
@@ -58,7 +58,6 @@ Collection.prototype.execute = function(executeName, query, option, callback){
 
         if(executeName !== "find"){
             collection[executeName](query, option, function(error, result) {
-                console.log(_this.responseObj)
                 _this.responseObj.error = error;
                 _this.responseObj.result = result; 
                 callback(_this.responseObj);
@@ -67,10 +66,23 @@ Collection.prototype.execute = function(executeName, query, option, callback){
             collection[executeName](query, option).toArray(function(error, result) {
                 _this.responseObj.error = error;
                 _this.responseObj.result = result; 
-                callback(this.responseObj);
+                callback(_this.responseObj);
             });
         }
         
+    });
+}
+
+Collection.prototype.update = function(selector, document, option, callback){
+    var _this = this;
+
+    this.run(function(){
+        var collection = _this.Collection;
+        collection[executeName](selector, document, option, function(error, result) {
+            _this.responseObj.error = error;
+            _this.responseObj.result = result; 
+            callback(_this.responseObj);
+        });
     });
 }
 
