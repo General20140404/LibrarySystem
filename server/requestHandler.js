@@ -2,7 +2,6 @@ var Collection = require("./mongodb/collection").Collection;
 var Book = require("./douban/book");
 
 function login(response, postData) {
-	postData = JSON.parse(postData);
 	console.log('login event fired!');
 
 	var returnData = {
@@ -22,7 +21,7 @@ function test(response, postData) {
 
 function addNewBook(response, postData){
 	var collection = new Collection("BookInfo");
-	postData = JSON.parse(postData);
+	// postData = JSON.parse(postData);
 	var bookID = postData.id;
 	collection.execute("count", {id:bookID}, {}, function(msg){
 		collection.close();

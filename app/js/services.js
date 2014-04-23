@@ -16,4 +16,15 @@ factory('Login', function($resource) {
 			cache: true
 		}
 	});
+})
+.factory('Home', function($resource) {
+	return $resource('login/:action', {'name': 'Noah', 'age': 25}, {
+		query: {
+			method: 'get',
+			params: {},
+			data: {},
+			isArray: false,
+			cache: true
+		}
+	});
 });

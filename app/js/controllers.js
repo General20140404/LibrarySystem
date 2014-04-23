@@ -3,8 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-	.controller('loginCtrl', ['$scope', 'Login',
-		function($scope, Login) {
+	.controller('loginCtrl', ['$scope', 'Login', 'Home', function($scope, Login, Home) {
 			$scope.fields = {
 				'username': 'admin@tibco-support.com',
 				'password': 'admin',
@@ -16,7 +15,12 @@ angular.module('myApp.controllers', [])
 				$scope.checked = Login.query(param, $scope.fields, function(data) {
 					console.log(data);
 				});
-				// $scope.check = Login.query();
+				$scope.checked = Home.query(param, $scope.fields, function(data) {
+					console.log(data);
+				});
+				$scope.check = Login.query(function(data) {
+					console.log(data);
+				});
 			}
 		}
 	])

@@ -3,6 +3,7 @@ var http = require('http');
 var url = require('url');
 var path = require('path');
 var fs = require('fs');
+var querystring = require('querystring');
 
 // own dependency
 var server_config = require('./config/server_config');
@@ -10,6 +11,18 @@ var config = require("./config/config");
 var route = require("./router");
 var staticRequestHandler = require("./staticRequestHandler");
 var handleMap = require("./handleMap");
+
+
+
+
+var parseData = function(data) {
+    if (data && typeof data === 'string') {
+        data = JSON.parse(data);
+    }
+    return data;
+};
+
+
 
 function start() {
     var server = http.createServer(function(request, response) {
@@ -24,12 +37,19 @@ function start() {
             staticRequestHandler.staticRequestHandler(request, response, pathname);
         } else {
             // handle ajax request
-            var postData = '';
-            request.on('data', function(chunk) {
-                postData += chunk;
-            }).on("end", function() {
-                route.route(handleMap.handle, pathname, response, postData);
-            });
+            if (request.method == 'GET') {
+                var getData = url.parse(request.url, true).query;
+                getData = parseData(getData);
+                route.route(handleMap.handle, pathname, response, getData);
+            } else if (request.method == 'POST') {
+                var postData = '';
+                request.on('data', function(chunk) {
+                    postData += chunk;
+                }).on("end", function() {
+                    postData = parseData(postData);
+                    route.route(handleMap.handle, pathname, response, postData);
+                });
+            }
         }
     });
     server.listen(server_config.port, server_config.address);
