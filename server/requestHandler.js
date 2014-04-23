@@ -1,28 +1,70 @@
 var Collection = require("./mongodb/collection").Collection;
 var Book = require("./douban/book");
 
-function login(response, postData) {
-	console.log('login event fired!');
+function login(response, data) {
+    var collection = new Collection('User');
+    collection.execute('find', {mail: data.username}, {}, function(results) {
+    	collection.close();
+		var returnData = '';
+    	if (!results.error && (results.result.length > 0)) {
+    		if (results.result[0].password === data.password) {
+    			returnData = {
+			        'success' : true,
+			        'message' : ''
+			    }
+    		} else {
+    			returnData = {
+			        'success' : false,
+			        'message' : 'Password is not right!'
+			    }
+    		}
+    	} else {
+    		returnData = {
+		        'success' : false,
+		        'message' : 'Username is not right!'
+		    }
+    	}
 
-	var returnData = {
-        success : true,
-        data : "Data from server"
-    }
-
-    response.writeHead(200, {"Content-Type": "application/json"});
-    response.write(JSON.stringify(returnData)); 
-	response.end();
+    	response.writeHead(200, {"Content-Type": "application/json"});
+	    response.write(JSON.stringify(returnData)); 
+		response.end();
+    });
 };
 
-function test(response, postData) {
+function home(response, data) {
+	var collection = new Collection('BookInfo');
+	collection.execute('find', {mail: data.username}, {}, function(results) {
+    	collection.close();
+		var returnData = '';
+    	if (!results.error && (results.result.length > 0)) {
+			returnData = {
+		        'success' : true,
+		        'message' : 'get books success',
+		        'data': results.result
+		    }
+    	} else {
+    		returnData = {
+		        'success' : false,
+		        'message' : 'no books',
+		        'data': []
+		    }
+    	}
+
+    	response.writeHead(200, {"Content-Type": "application/json"});
+	    response.write(JSON.stringify(returnData)); 
+		response.end();
+    });
+};
+
+function test(response, data) {
 	console.log('home event fired!');
 	response.end();
 };
 
-function addNewBook(response, postData){
+function addNewBook(response, data){
 	var collection = new Collection("BookInfo");
-	// postData = JSON.parse(postData);
-	var bookID = postData.id;
+	// data = JSON.parse(data);
+	var bookID = data.id;
 	collection.execute("count", {id:bookID}, {}, function(msg){
 		collection.close();
 		if(msg.result === 1){
@@ -46,5 +88,6 @@ function addNewBook(response, postData){
 }
 
 exports.login = login;
+exports.home = home;
 exports.test = test;
 exports.addNewBook = addNewBook;

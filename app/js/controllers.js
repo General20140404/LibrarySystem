@@ -3,30 +3,32 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-	.controller('loginCtrl', ['$scope', 'Login', 'Home', function($scope, Login, Home) {
+	.controller('loginCtrl', ['$scope', '$location', 'Login', 'Home', function($scope, $location, Login, Home) {
 			$scope.fields = {
-				'username': 'admin@tibco-support.com',
-				'password': 'admin',
+				'username': 'tangxz.0501@gmail.com',
+				'password': 'tangxuezhi',
 				'remember': 'false'
 			}
+			$scope.errorMsg = '';
 			$scope.submit = function() {
 				// var param = {'action': 'query', 'param': 'name'};
 				var param = {};
-				$scope.checked = Login.query(param, $scope.fields, function(data) {
-					console.log(data);
-				});
-				$scope.checked = Home.query(param, $scope.fields, function(data) {
-					console.log(data);
-				});
-				$scope.check = Login.query(function(data) {
-					console.log(data);
+				Login.query(param, $scope.fields, function(data) {
+					if (data.success) {
+						$location.path('/home');
+					} else {
+						$scope.errorMsg = data.message;
+					}
 				});
 			}
 		}
 	])
-	.controller('MyCtrl1', ['$scope',
-		function($scope) {
-
+	.controller('HomeCtrl', ['$scope', 'Home',
+		function($scope, Home) {
+			$scope.book = [];
+			Home.query({}, function(data) {
+				$scope.books = data.data;
+			});
 		}
 	])
 	.controller('MyCtrl2', ['$scope',
