@@ -18,10 +18,11 @@ factory('Login', function($resource) {
 	});
 })
 .factory('Home', function($resource) {
-	return $resource('home/:action', {}, {
+	return $resource('login/:action', {'name': 'Noah', 'age': 25}, {
 		query: {
 			method: 'get',
 			params: {},
+			data: {},
 			isArray: false,
 			cache: true
 		}

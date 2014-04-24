@@ -14,13 +14,15 @@ var handleMap = require("./handleMap");
 
 
 
-// need to optimize to a module or ..
+
 var parseData = function(data) {
     if (data && typeof data === 'string') {
         data = JSON.parse(data);
     }
     return data;
 };
+
+
 
 function start() {
     var server = http.createServer(function(request, response) {
