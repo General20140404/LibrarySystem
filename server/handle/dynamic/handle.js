@@ -1,5 +1,4 @@
-var Collection = require("./mongodb/collection").Collection;
-var Book = require("./douban/book");
+var Collection = require("./../../mongodb/collection").Collection;
 
 function login(response, data) {
     var collection = new Collection('User');
@@ -56,38 +55,41 @@ function home(response, data) {
     });
 };
 
-function test(response, data) {
-	console.log('home event fired!');
+// add comment because of no 'Book' 
+// function addNewBook(response, data){
+// 	var collection = new Collection("BookInfo");
+// 	// data = JSON.parse(data);
+// 	var bookID = data.id;
+// 	collection.execute("count", {id:bookID}, {}, function(msg){
+// 		collection.close();
+// 		if(msg.result === 1){
+// 			msg.result = "This book is already exist";
+// 			response.writeHead(200, {"Content-Type": "application/json"});
+//     		response.write(JSON.stringify(msg)); 
+// 			response.end();
+// 		}else{
+// 			Book.getBook(bookID, function(json) {
+// 				collection.execute("insert", json, {w:1}, function(result){
+// 					collection.close();
+// 					response.writeHead(200, {"Content-Type": "application/json"});
+// 		    		response.write(JSON.stringify(result)); 
+// 					response.end();
+// 				});
+// 			});
+// 		}
+		
+// 	});
+	
+// };
+
+function undefined(response, data) {
+	response.writeHead(404, {
+		"Content-Type": "text/plain"
+	});
+	response.write("404 Not found");
 	response.end();
 };
 
-function addNewBook(response, data){
-	var collection = new Collection("BookInfo");
-	// data = JSON.parse(data);
-	var bookID = data.id;
-	collection.execute("count", {id:bookID}, {}, function(msg){
-		collection.close();
-		if(msg.result === 1){
-			msg.result = "This book is already exist";
-			response.writeHead(200, {"Content-Type": "application/json"});
-    		response.write(JSON.stringify(msg)); 
-			response.end();
-		}else{
-			Book.getBook(bookID, function(json) {
-				collection.execute("insert", json, {w:1}, function(result){
-					collection.close();
-					response.writeHead(200, {"Content-Type": "application/json"});
-		    		response.write(JSON.stringify(result)); 
-					response.end();
-				});
-			});
-		}
-		
-	});
-	
-}
-
 exports.login = login;
 exports.home = home;
-exports.test = test;
-exports.addNewBook = addNewBook;
+// exports.addNewBook = addNewBook;

@@ -4,15 +4,12 @@ var querystring = require('querystring');
 var util = require('util');
 var path = require('path');
 
-var server_config = require('./config/server_config');
-var utils = require('./config/utils');
-var mime = require('./config/mime').types;
-var config = require("./config/config");
-var route = require("./router");
-var requestHandler = require("./requestHandler");
+var utils = require('./../../config/utils');
+var mime = require('./../../config/mime').types;
+var config = require("./../../config/config");
+var route = require("./../../route/route");
 
-
-function staticRequestHandler(request, response, pathname) {
+function handle(request, response, pathname) {
     var realPath = path.join("app", path.normalize(pathname.replace(/\.\./g, "")));
 
     var pathHandle = function(realPath) {
@@ -92,9 +89,7 @@ function staticRequestHandler(request, response, pathname) {
     };
 
     pathHandle(realPath);
-
-
 };
 
 
-exports.staticRequestHandler = staticRequestHandler;
+exports.handle = handle;

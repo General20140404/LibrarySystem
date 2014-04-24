@@ -5,8 +5,8 @@
 angular.module('myApp.controllers', [])
 	.controller('loginCtrl', ['$scope', '$location', 'Login', 'Home', function($scope, $location, Login, Home) {
 			$scope.fields = {
-				'username': 'tangxz.0501@gmail.com',
-				'password': 'tangxuezhi',
+				'username': '',
+				'password': '',
 				'remember': 'false'
 			}
 			$scope.errorMsg = '';
@@ -23,7 +23,7 @@ angular.module('myApp.controllers', [])
 			}
 		}
 	])
-	.controller('HomeCtrl', ['$scope', 'Home',
+	.controller('homeCtrl', ['$scope', 'Home',
 		function($scope, Home) {
 			$scope.book = [];
 			Home.query({}, function(data) {

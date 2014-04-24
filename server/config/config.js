@@ -14,3 +14,8 @@ exports.entryPoint = {
 exports.asserts = {
     fileMatch: /^.html$|^.css$|^.js$|^.json$|^.xml$|^.ico$/
 };
+
+exports.server = {
+	'address': 'localhost',
+	'port': 8888
+};

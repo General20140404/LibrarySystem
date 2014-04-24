@@ -6,15 +6,10 @@ var fs = require('fs');
 var querystring = require('querystring');
 
 // own dependency
-var server_config = require('./config/server_config');
 var config = require("./config/config");
-var route = require("./router");
-var staticRequestHandler = require("./staticRequestHandler");
-var handleMap = require("./handleMap");
+var staticHandle = require('./handle/static/handle').handle;
+var route = require("./route/route");
 
-
-
-// need to optimize to a module or ..
 var parseData = function(data) {
     if (data && typeof data === 'string') {
         data = JSON.parse(data);
@@ -32,26 +27,26 @@ function start() {
         var ext = path.extname(pathname);
         if (config.asserts.fileMatch.test(ext.toLowerCase())) {
             // handle app asserts request, these file always end by .js, .css, .html or other format suffix
-            staticRequestHandler.staticRequestHandler(request, response, pathname);
+            staticHandle(request, response, pathname);
         } else {
             // handle ajax request
             if (request.method == 'GET') {
                 var getData = url.parse(request.url, true).query;
                 getData = parseData(getData);
-                route.route(handleMap.handle, pathname, response, getData);
+                route.route(route.handle, pathname, response, getData);
             } else if (request.method == 'POST') {
                 var postData = '';
                 request.on('data', function(chunk) {
                     postData += chunk;
                 }).on("end", function() {
                     postData = parseData(postData);
-                    route.route(handleMap.handle, pathname, response, postData);
+                    route.route(route.handle, pathname, response, postData);
                 });
             }
         }
     });
-    server.listen(server_config.port, server_config.address);
-    console.log('Server running at http://' + server_config.address + ':' + server_config.port + '/');
+    server.listen(config.server.port, config.server.address);
+    console.log('Server running at http://' + config.server.address + ':' + config.server.port + '/');
 };
 
 exports.start = start;
