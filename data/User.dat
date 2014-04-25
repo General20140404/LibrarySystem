@@ -1,0 +1,2 @@
+{ "_id" : { "$oid" : "53572097a9f1ec6677cbc80f" }, "mail" : "tangxz.0501@gmail.com", "password" : "tangxuezhi" }
+{ "_id" : { "$oid" : "5358d1d2154901c58bf08d1b" }, "mail" : "admin", "password" : "admin" }
