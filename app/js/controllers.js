@@ -30,10 +30,12 @@ angular.module('myApp.controllers', [])
 			});
 
 			$scope.selectOneBook = function(data) {
-				$dialog.setData("CURRENT_BOOK", data);
+				$dialog.setData("CURRENT_BOOK_IN_BOOKDETAIL", data);
 				$dialog.init({
 					title : data.title,
-					templateUrl : "partials.bookDetail.html",
+					width : 800,
+					height : 500,
+					templateUrl : "partials/bookDetail.html",
 					buttons : {
 						"button1" : {
 							text : "Borrow",
@@ -52,8 +54,18 @@ angular.module('myApp.controllers', [])
 			}
 		}
 	])
-	.controller('MyCtrl2', ['$scope',
-		function($scope) {
+	.controller('bookDetailCtrl', ['$scope', "$dialog", function($scope, $dialog) {
+
+			$scope.data = angular.copy($dialog.getData("CURRENT_BOOK_IN_BOOKDETAIL"));
+
+			console.log($scope.data)
+
+
+
+			
+		}
+	])
+	.controller('MyCtrl2', ['$scope', function($scope) {
 
 		}
 	])

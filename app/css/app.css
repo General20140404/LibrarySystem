@@ -38,3 +38,14 @@
   font-size: 12px;
   margin-right: 20px;
 }
+
+#bookDetail .cover{
+  float: left;
+  margin-right: 18px;
+}
+
+#bookDetail .info{
+  font-size: 12px;
+  margin-right: 20px;
+}
+
