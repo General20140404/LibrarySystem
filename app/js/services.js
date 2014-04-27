@@ -26,4 +26,43 @@ factory('Login', function($resource) {
 			cache: true
 		}
 	});
+})
+.factory("$dialog", function($rootScope){
+
+	var dialog = {
+		initObj : {
+			title: "Dialog",
+			templateUrl : "",
+			width: 500,
+			height : 300,
+			buttons : {
+				"button1" : {
+					text : "Change",
+					method : function() {
+
+					}
+				},
+				"button2" : {
+					text : "Close",
+					method : function() {
+						dialog.Close();
+					}
+				}
+			}
+		},
+		init : function(dialogObj){
+			dialogObj = dialogObj || dialog.initObj;
+			console.log(dialogObj)
+			$rootScope.$broadcast("DIALOG_OPEN", dialogObj);
+		},
+		Close : function() {
+			$rootScope.$broadcast("DIALOG_CLOSE");
+		},
+		Minimize : function() {
+			$rootScope.$broadcast("DIALOG_MINIMIZE");
+		}
+	}
+
+	return dialog;
+
 });

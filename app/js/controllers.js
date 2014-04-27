@@ -35,4 +35,34 @@ angular.module('myApp.controllers', [])
 		function($scope) {
 
 		}
-	]);
+	])
+	.controller("dialog", ["$scope", "$element", "$dialog", function($scope, $element, $dialog){
+
+		
+
+		$scope.hideStatus = true;
+
+		$scope.$on("DIALOG_CLOSE", function(event){
+			$scope.hideStatus = true;
+		});
+
+		$scope.$on("DIALOG_MINIMIZE", function(event){
+
+		});
+
+		$scope.$on("DIALOG_OPEN", function(event, obj){
+			$scope.hideStatus = false;
+
+			$scope.title = obj.title;
+			$scope.templateUrl = obj.templateUrl;
+			$scope.buttons = obj.buttons;
+			$scope.height = obj.height;
+			$scope.width = obj.width;
+
+		});
+
+		
+		//$dialog.init();
+
+
+	}]);
