@@ -16,7 +16,22 @@
     <li><a href="#/view2">view2</a></li>
   </ul> -->
 
-  <div ng-view></div>
+  <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Library System</a>
+          <ul class="nav">
+            <li class="active">
+                <a href="./#/home">Home</a>
+            </li>
+            <li><a href="#">My Borrowed Record</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+
+  <div class="container" ng-view></div>
+
   <div ng-controller="dialog" id="dialog" ng-hide="hideStatus">
     <div class="modal" style="height : {{height + 'px'}}; width: {{width + 'px'}};">
       <div class="modal-header">

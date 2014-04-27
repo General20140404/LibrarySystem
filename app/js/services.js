@@ -50,9 +50,9 @@ factory('Login', function($resource) {
 				}
 			}
 		},
+		data : {},
 		init : function(dialogObj){
-			dialogObj = dialogObj || dialog.initObj;
-			console.log(dialogObj)
+			dialogObj = angular.extend(dialog.initObj, dialogObj);
 			$rootScope.$broadcast("DIALOG_OPEN", dialogObj);
 		},
 		Close : function() {
@@ -60,6 +60,12 @@ factory('Login', function($resource) {
 		},
 		Minimize : function() {
 			$rootScope.$broadcast("DIALOG_MINIMIZE");
+		},
+		setData : function(propName, obj) {
+			dialog.data[propName] = obj;
+		},
+		getData : function(propName){
+			return dialog.data[propName];
 		}
 	}
 

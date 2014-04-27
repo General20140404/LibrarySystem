@@ -23,12 +23,33 @@ angular.module('myApp.controllers', [])
 			}
 		}
 	])
-	.controller('homeCtrl', ['$scope', 'Home',
-		function($scope, Home) {
+	.controller('homeCtrl', ['$scope', 'Home', "$dialog", function($scope, Home, $dialog) {
 			$scope.book = [];
 			Home.query({}, function(data) {
 				$scope.books = data.data;
 			});
+
+			$scope.selectOneBook = function(data) {
+				$dialog.setData("CURRENT_BOOK", data);
+				$dialog.init({
+					title : data.title,
+					templateUrl : "partials.bookDetail.html",
+					buttons : {
+						"button1" : {
+							text : "Borrow",
+							method : function() {
+
+							}
+						},
+						"button2" : {
+							text : "Close",
+							method : function() {
+								$dialog.Close();
+							}
+						}
+					}
+				});
+			}
 		}
 	])
 	.controller('MyCtrl2', ['$scope',
@@ -37,8 +58,6 @@ angular.module('myApp.controllers', [])
 		}
 	])
 	.controller("dialog", ["$scope", "$element", "$dialog", function($scope, $element, $dialog){
-
-		
 
 		$scope.hideStatus = true;
 
@@ -60,9 +79,6 @@ angular.module('myApp.controllers', [])
 			$scope.width = obj.width;
 
 		});
-
-		
-		//$dialog.init();
 
 
 	}]);

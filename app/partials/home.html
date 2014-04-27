@@ -1,5 +1,5 @@
-<div class="container" id="Home">
-	<h1>Welcome to library system !</h1>
+<div class="container" id="home">
+	<!-- <h1>Welcome to library system !</h1>
 	<hr>
 	<table class="table table-bordered" id="bookList">
 		<thead>
@@ -17,7 +17,7 @@
 		<tfoot></tfoot>
 		<tbody>
 			<tr ng-repeat="book in books">
-				<td><span>{{$index}}</span></td>
+				<td><span>{{book.id}}</span></td>
 				<td><span>{{book.publisher}}</span></td>
 				<td><span>{{book.pubdate}}</span></td>
 				<td>
@@ -26,10 +26,52 @@
 				<td>
 					<img ng-src="{{book.image}}" alt="">
 				</td>
-				<td><span>{{book.title}}</span></td>
+				<td><a ng-click = "selectOneBook(book)">{{book.title}}</a></td>
 				<td><span>{{book.summary}}</span></td>
 				<td><span>{{book.price}}</span></td>
 			</tr>
 		</tbody>
-	</table>
+	</table> -->
+	<h3>Welcome to library system !</h3>
+	<hr>
+	<ul class="row-fluid show-grid">
+      <li class="span4" ng-repeat="book in books">
+        <div class="cover">
+          <a ng-click="selectOneBook(book)" title="{{book.title}}">
+            <img ng-src="{{book.image}}" class="">
+          </a>
+        </div>
+        <div class="info">
+          <h4 class="title">
+            <a ng-click="selectOneBook(book)" title="{{book.title}}">
+       		{{book.title}}
+            </a>
+          </h4>
+          <p class="author">
+            Author: <span ng-repeat="author in book.author">{{author}}</span>
+          </p>
+          <p class="publisher">
+            Publisher: {{book.publisher}}
+          </p>
+          <p class="year">
+            Publish Year: {{book.pubdate}}
+          </p>
+          <p class="extra-info">
+            
+          </p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="pagination">
+	  <ul>
+	    <li><a href="#">Prev</a></li>
+	    <li><a href="#">1</a></li>
+	    <li><a href="#">2</a></li>
+	    <li><a href="#">3</a></li>
+	    <li><a href="#">4</a></li>
+	    <li><a href="#">5</a></li>
+	    <li><a href="#">Next</a></li>
+	  </ul>
+	</div>
 </div>

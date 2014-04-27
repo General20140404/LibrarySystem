@@ -28,3 +28,13 @@
   content: "";
   padding: 0;
 }
+
+#home .cover{
+  float: left;
+  margin-right: 18px;
+}
+
+#home .info{
+  font-size: 12px;
+  margin-right: 20px;
+}
