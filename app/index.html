@@ -2,11 +2,13 @@
 <html lang="en" ng-app="myApp">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimumscale=1.0, maximum-scale=1.0">
   <title>Library System App</title>
   <link rel="stylesheet" href="css/app.css"/>
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css"/>
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-responsive.css"/>
   <link rel="stylesheet" href="css/login.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
   <link rel="stylesheet" href="css/dialog.css"/>
 </head>
 <body>
@@ -16,7 +18,7 @@
     <li><a href="#/view2">view2</a></li>
   </ul> -->
 
-  <div class="navbar navbar-inverse">
+  <!-- <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="#">Library System</a>
@@ -28,6 +30,17 @@
           </ul>
         </div>
       </div>
+  </div> -->
+
+  <div class="container">
+    <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="./#/home">Library System</a>
+    </li>
+    <li class="active">
+      <a href="#">Borrowed Record</a>
+    </li>
+  </ul>
   </div>
 
   <div class="container" ng-view></div>

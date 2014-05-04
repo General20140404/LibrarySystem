@@ -32,9 +32,9 @@
 			</tr>
 		</tbody>
 	</table> -->
-	<h3>Welcome to library system !</h3>
-	<hr>
-	<ul class="row-fluid show-grid">
+	<!-- <h5>Welcome to library system !</h5> -->
+	<!-- <hr> -->
+	<!-- <ul class="row-fluid show-grid" id="book_list">
       <li class="span4" ng-repeat="book in books">
         <div class="cover">
           <a ng-click="selectOneBook(book)" title="{{book.title}}">
@@ -58,9 +58,9 @@
           </p>
         </div>
       </li>
-    </ul>
-
-    <div class="pagination">
+    </ul> -->
+	
+    <!-- <div class="pagination">
 	  <ul>
 	    <li><a href="#">Prev</a></li>
 	    <li><a href="#">1</a></li>
@@ -70,5 +70,37 @@
 	    <li><a href="#">5</a></li>
 	    <li><a href="#">Next</a></li>
 	  </ul>
+	</div> -->
+	<h5>availble to borrow</h5>
+	<hr>
+	<div id="available" class="book-list">
+		<dl ng-repeat="book in books">
+			<dt>
+				<a href="">
+					<img src="" alt="" ng-src="{{book.image}}">
+				</a>
+			</dt>
+			<dd>
+				<a ng-click="selectOneBook(book)" href="">{{book.title}}</a>
+			</dd>
+		</dl>
+		<a href="javascript:void(0);" class="more" ng-click="showMore($event, 'available')">{{moreAvailable}}</a>
 	</div>
+
+	<h5>unavailable to borrow</h5>
+	<hr>
+	<div id="unavailable" class="book-list">
+		<dl ng-repeat="book in books">
+			<dt>
+				<a href="">
+					<img src="" alt="" ng-src="{{book.image}}">
+				</a>
+			</dt>
+			<dd>
+				<a ng-click="selectOneBook(book)" href="">{{book.title}}</a>
+			</dd>
+		</dl>
+		<a href="javascript:void(0);" class="more" ng-click="showMore($event, 'unavailable')">{{moreUnavailable}}</a>
+	</div>	
+
 </div>

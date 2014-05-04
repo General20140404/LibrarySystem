@@ -37,6 +37,7 @@
 #home .info{
   font-size: 12px;
   margin-right: 20px;
+  float: left;
 }
 
 #bookDetail .cover{
@@ -49,3 +50,10 @@
   margin-right: 20px;
 }
 
+/*home page*/
+#book_list li{
+  display: inline-block;
+  width: 350px;
+  min-height: 160px;
+  margin-left: 0;
+}

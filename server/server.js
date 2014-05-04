@@ -45,7 +45,7 @@ function start() {
             }
         }
     });
-    server.listen(config.server.port, config.server.address);
+    server.listen(config.server.port);
     console.log('Server running at http://' + config.server.address + ':' + config.server.port + '/');
 };
 

@@ -51,6 +51,17 @@ angular.module('myApp.controllers', [])
 						}
 					}
 				});
+			};
+			
+			$scope.moreAvailable = 'more';
+			$scope.moreUnavailable = 'more';
+			$scope.showMore = function($event, type) {
+				angular.element($event.currentTarget).parent().toggleClass('show-all');
+				if (type === 'available') {
+					$scope.moreAvailable = $scope.moreAvailable === 'more'? 'less': 'more';
+				} else {
+					$scope.moreUnavailable = $scope.moreUnavailable === 'more'? 'less': 'more';
+				}
 			}
 		}
 	])
