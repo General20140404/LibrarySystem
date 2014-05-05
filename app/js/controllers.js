@@ -3,6 +3,15 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
+	.controller('mainCtrl', ['$scope', function($scope){
+		$scope.navClick = function($event) {
+			angular.element('#navbar').find('li').removeClass('active');
+			angular.element($event.target).parent().addClass('active');
+		};
+	}])
+	.controller('indexCtrl', ['$scope', function($scope){
+		
+	}])
 	.controller('loginCtrl', ['$scope', '$location', 'Login', 'Home', function($scope, $location, Login, Home) {
 			$scope.fields = {
 				'username': '',
@@ -23,34 +32,36 @@ angular.module('myApp.controllers', [])
 			}
 		}
 	])
-	.controller('homeCtrl', ['$scope', 'Home', "$dialog", function($scope, Home, $dialog) {
+	.controller('homeCtrl', ['$scope', 'Home', '$dialog', '$location', 'transfer', function($scope, Home, $dialog, $location, transfer) {
 			$scope.book = [];
 			Home.query({}, function(data) {
 				$scope.books = data.data;
 			});
 
 			$scope.selectOneBook = function(data) {
-				$dialog.setData("CURRENT_BOOK_IN_BOOKDETAIL", data);
-				$dialog.init({
-					title : data.title,
-					width : 800,
-					height : 500,
-					templateUrl : "partials/bookDetail.html",
-					buttons : {
-						"button1" : {
-							text : "Borrow",
-							method : function() {
+				$location.path('/detail');
+				transfer.setData('bookDetails', data);
+				// $dialog.setData("CURRENT_BOOK_IN_BOOKDETAIL", data);
+				// $dialog.init({
+				// 	title : data.title,
+				// 	width : 800,
+				// 	height : 500,
+				// 	templateUrl : "partials/bookDetail.html",
+				// 	buttons : {
+				// 		"button1" : {
+				// 			text : "Borrow",
+				// 			method : function() {
 
-							}
-						},
-						"button2" : {
-							text : "Close",
-							method : function() {
-								$dialog.Close();
-							}
-						}
-					}
-				});
+				// 			}
+				// 		},
+				// 		"button2" : {
+				// 			text : "Close",
+				// 			method : function() {
+				// 				$dialog.Close();
+				// 			}
+				// 		}
+				// 	}
+				// });
 			};
 			
 			$scope.moreAvailable = 'more';
@@ -62,22 +73,19 @@ angular.module('myApp.controllers', [])
 				} else {
 					$scope.moreUnavailable = $scope.moreUnavailable === 'more'? 'less': 'more';
 				}
-			}
+			};
 		}
 	])
-	.controller('bookDetailCtrl', ['$scope', "$dialog", function($scope, $dialog) {
-
-			$scope.data = angular.copy($dialog.getData("CURRENT_BOOK_IN_BOOKDETAIL"));
-
+	.controller('bookDetailCtrl', ['$scope', "$dialog", function($scope, $dialog, transfer) {
+			$scope.data = angular.copy($dialog.getData('CURRENT_BOOK_IN_BOOKDETAIL'));
 			console.log($scope.data)
-
-
-
-			
 		}
 	])
-	.controller('MyCtrl2', ['$scope', function($scope) {
-
+	.controller('detailCtrl', ['$scope', '$dialog', 'transfer', function($scope, $dialog, transfer){
+		$scope.data = angular.copy(transfer.getData("bookDetails"));
+	}])
+	.controller('recordCtrl', ['$scope', function($scope) {
+			console.log('record page');
 		}
 	])
 	.controller("dialog", ["$scope", "$element", "$dialog", function($scope, $element, $dialog){

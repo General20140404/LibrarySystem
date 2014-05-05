@@ -1,0 +1,31 @@
+<div id="bookDetail">
+	<div>
+		<div class="cover">
+			<a >
+			    <img ng-src="{{data.image}}" >
+			</a>
+		</div>
+		<div class="info">
+			<p class="id">
+			Id：{{data.id}}
+			</p>
+			<p class="author">
+			Author: <span ng-repeat="author in data.author">{{author}}</span>
+			</p>
+			<p class="publisher">
+			Publisher: {{data.publisher}}
+			</p>
+			<p class="year">
+			Publish Year: {{data.pubdate}}
+			</p>
+			<p class="year">
+			Price：{{data.price}}
+			</p>
+		</div>
+	</div>
+	<hr>
+	<div>
+		<h4>Summary</h4>
+		<p>{{data.summary}}</p>
+	</div>
+</div>

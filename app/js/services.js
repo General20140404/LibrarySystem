@@ -71,4 +71,17 @@ factory('Login', function($resource) {
 
 	return dialog;
 
+})
+.factory('transfer', function(){
+	// var data = {};
+	var bookDetail = {
+		data: {},
+		setData: function(type, obj) {
+			bookDetail.data[type] = obj;
+		},
+		getData: function(type) {
+			return bookDetail.data[type];
+		}
+	};
+	return bookDetail;
 });

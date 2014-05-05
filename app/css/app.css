@@ -1,5 +1,8 @@
 /* app css stylesheet */
 
+  
+
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -56,4 +59,49 @@
   width: 350px;
   min-height: 160px;
   margin-left: 0;
+}
+
+
+
+#content_container{
+  padding-top: 50px;
+  margin-top: 0;
+}
+#navbar{
+  position: fixed;
+}
+#navbar .nav{
+  margin: 0 45px;
+}
+/* 大屏幕 */
+@media (min-width: 1200px) {
+  
+}
+ 
+/* 平板电脑和小屏电脑之间的分辨率 */
+@media (min-width: 768px) and (max-width: 979px) {
+  #content_container{
+    margin-top: 0;
+  }
+}
+ 
+/* 横向放置的手机和竖向放置的平板之间的分辨率 */
+@media (max-width: 767px) {
+  #content_container{
+    margin-top: 50px;
+  }
+  #navbar .nav{
+    float: none;
+    margin-right: 0;
+    margin: 0;
+  }
+  #navbar .nav li{
+    float: none;
+    text-align: center;
+  }
+}
+ 
+/* 横向放置的手机及分辨率更小的设备 */
+@media (max-width: 480px) {
+  
 }
